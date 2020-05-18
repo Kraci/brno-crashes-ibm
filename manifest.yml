@@ -2,5 +2,5 @@ applications:
 - buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
   host: brno-crashes-ibm
   name: brno-crashes-ibm
-  memory: 1G
+  memory: 64M
   stack: cflinuxfs3
