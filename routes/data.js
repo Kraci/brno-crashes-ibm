@@ -1,24 +1,23 @@
+var Cloudant = require('@cloudant/cloudant');
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-    const xlsx = require('node-xlsx');
-    //const obj = xlsx.parse('./data/nehody-brno-2018.xlsx');
-    const obj = xlsx.parse('./data/kolo_2011_2018.xlsx');
-    const data = obj[0].data;
+var DB_NAME = 'crashes';
+
+router.get('/', async function(req, res, next) {
+    var cloudant = new Cloudant({ url: 'https://2a3aa61b-f613-4803-adc7-251f160febf7-bluemix.cloudantnosqldb.appdomain.cloud', plugins: { iamauth: { iamApiKey: 'mJqWGbjL5fLrHgC9mfMc04X16ESP6dmdtzp6HJoLzHpb'}}});
+    var crashes = cloudant.db.use(DB_NAME);
     var result = [];
 
-    for (var i = 1; i < data.length; i++) {
-        const item = data[i];
-        const alc = item[9] === 'ne' || item[9] === 'nezjišťováno';
+    console.log('Read data...')
 
-        result.push({
-            latitude: item[26],
-            longitude: item[27],
-            alcoholOrDrugs: !alc,
+    await crashes.list({include_docs: true}).then((body) => {
+        body.rows.forEach((row) => {
+            let doc = row.doc;
+            result.push(doc);
         });
-    }
-    
+    });
+
     res.send(result);
 });
 
