@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>Brno Crashes</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
-    <style>
-      #map {
-        height: 100%;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
     <div id="map"></div>
+    <div id="loader"></div>
+    <div id="main-grid" class="uk-grid-column-small" uk-grid>
+      <div>
+        <div class="uk-background-muted">
+        &nbsp&nbspDay / Night&nbsp&nbsp
+        <div class="uk-inline">
+          <button id="day-night-filter" class="uk-button uk-button-danger" type="button">All</button>
+          <div uk-dropdown="mode: click">
+            <button id="day-btn" onclick="dayClicked()" class="uk-button uk-button-default uk-button-small">Day</button>
+            <button id="night-btn" onclick="nightClicked()" class="uk-button uk-button-default uk-button-small">Night</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div>
+        <div class="uk-background-muted">
+        &nbsp&nbspPeople died&nbsp&nbsp
+        <div class="uk-inline">
+          <button id="died-filter" class="uk-button uk-button-danger" type="button">All</button>
+          <div uk-dropdown="mode: click">
+            <button id="not-died-btn" onclick="notDiedClicked()" class="uk-button uk-button-default uk-button-small">0</button>
+            <button id="died-btn" onclick="diedClicked()" class="uk-button uk-button-default uk-button-small">>0</button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div>
+        <div class="uk-background-muted">
+        &nbsp&nbspAlcohol&nbsp&nbsp
+        <div class="uk-inline">
+          <button id="alcohol-filter" class="uk-button uk-button-danger" type="button">All</button>
+          <div uk-dropdown="mode: click">
+            <button id="alcohol-btn" onclick="alcoholClicked()" class="uk-button uk-button-default uk-button-small">Alcohol</button>
+            <button id="no-alcohol-btn" onclick="noAlcoholClicked()" class="uk-button uk-button-default uk-button-small">No Alcohol</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.3/dist/js/uikit-icons.min.js"></script>
     <script src="./javascripts/app.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV82Gmqz9ggoiTAK2Oho8MWgKjjSjdQ0&callback=initMap"
     async defer></script>
